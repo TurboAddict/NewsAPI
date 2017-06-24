@@ -10,11 +10,4 @@
         android:orderInCategory="1"
         app:showAsAction="always" />
 
-    <item
-        android:title="@string/search"
-        android:orderInCategory="2"
-        android:width="200dp"
-        app:showAsAction="ifRoom"
-        android:id="@+id/action_search"
-        android:layout_width="wrap_content" />
 </menu>

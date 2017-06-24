@@ -18,37 +18,32 @@ public class MainActivity extends AppCompatActivity {
     private TextView mNewsTextView;
     private SearchView mSearchView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mNewsTextView = (TextView) findViewById(R.id.news_data);
-
-        //CharSequence query = mSearchView.getQuery();
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-                //findViewById(R.id.action_search_bar).getActionView();
         mSearchView = (SearchView) menu.findItem(R.id.action_search_bar).getActionView();
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mNewsTextView.setText("");
+                loadNewsData(query);
+                return false;
+            }
+        });
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        CharSequence query = mSearchView.getQuery();
-        if(id == R.id.action_search) {
-            mNewsTextView.setText("");
-
-            loadNewsData(mSearchView.getQuery().toString());
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void loadNewsData(String location) {
